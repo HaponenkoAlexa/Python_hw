@@ -19,7 +19,6 @@ def some_gen(begin, end, func):
 
 from inspect import isgenerator
 
-# Використовуйте partial, щоб передати тільки один аргумент для функції pow
 gen = some_gen(2, 4, partial(pow, exp=2))
 assert isgenerator(gen) == True, 'Test1'
 assert list(gen) == [2, 4, 16, 256], 'Test2'
