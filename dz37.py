@@ -7,19 +7,20 @@ class Rectangle:
         return self.width * self.height
 
     def __eq__(self, other):
-        return (self.width, self.height) == (other.width, other.height)
+        return self.get_square() == other.get_square()
 
     def __add__(self, other):
         if isinstance(other, Rectangle):
-            width_sum = self.width + other.width
-            height_sum = self.height + other.height
-            return Rectangle(width_sum, height_sum)
+            total_area = self.get_square() + other.get_square()
+            new_width = min(self.width, other.width)
+            new_height = total_area // new_width
+            return Rectangle(new_width, new_height)
         else:
             raise ValueError("Unsupported operand type for +: {}".format(type(other)))
 
     def __mul__(self, n):
         if isinstance(n, (int, float)):
-            return Rectangle(self.width * n, self.height * n)
+            return Rectangle(int(self.width * n), int(self.height * n))
         else:
             raise ValueError("Unsupported operand type for *: {}".format(type(n)))
 
@@ -27,9 +28,10 @@ class Rectangle:
         return f"Rectangle: width={self.width}, height={self.height}"
 
 
-# Приклад використання:
+# Example usage:
 r1 = Rectangle(2, 4)
 r2 = Rectangle(3, 6)
+
 assert r1.get_square() == 8, 'Test1'
 assert r2.get_square() == 18, 'Test2'
 
@@ -38,3 +40,7 @@ assert r3.get_square() == 26, 'Test3'
 
 r4 = r1 * 4
 assert r4.get_square() == 32, 'Test4'
+
+
+print('OK')
+
